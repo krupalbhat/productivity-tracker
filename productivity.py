@@ -1,21 +1,29 @@
 import datetime,csv,re,os
 def record():
     get_time_n_date()
-    if statuschecker():
-        dicty = {"day":datetimelist[1] , "timein":datetimelist[0]} 
+    dbool = True
+    if statuschecker(): 
         with open("statuschecker.txt", "w") as file:
             file.write("0")
     else:
-        dicty = [{"timeout":datetimelist[0]} ]
         with open("statuschecker.txt", "w") as file:
             file.write("1")
+            dbool = False
             
     keys = ["day","timein","timeout"] #have to revisit
     with open("productivity.csv", "a") as file:
-        writer = csv.DictWriter(file,fieldnames = keys)
+        
         if not os.path.isfile("productivity.csv"):
-            writer.writeheader()
-        writer.writerow(dicty)
+            writer.writerow("{},{},{}".format(keys[0],keys[1],keys[2]))
+        if dbool == True:
+            string1 = datetimelist[0]
+            string2 = str(datetimelist[1])
+            string3 = "{},{},".format(string1,string2)
+            file.write(string3)
+        if dbool == False:
+            string3 = str(datetimelist[1])
+            file.write(string3+"\n") 
+        
 
 def statuschecker():
     with open("statuschecker.txt", "r+") as file:
@@ -37,24 +45,11 @@ def get_time_n_date():
     regexstring = r"^202\d-\d\d-(\d\d) (\d\d):(\d\d):(\d\d)"
     regexresult = re.search(regexstring,timey)
     int_time = time_converter(regexresult)
-    datetimelist.append(int_time)
     datetimelist.append(regexresult[1])
+    datetimelist.append(int_time)
+    
 
     
 
 
-
-string = "p"
-if statuschecker():
-    user_input = input("press space to start")
-    if user_input == "":
-        record()
-    else:
-        print("invalid input")
-
-else:
-    user_input = input("press space to end")
-    if user_input == "":
-        record()
-    else:
-        print("invalid input")
+record()
