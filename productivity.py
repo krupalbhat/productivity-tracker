@@ -11,10 +11,12 @@ def record():
             dbool = False
             
     keys = ["day","timein","timeout"] #have to revisit
+    if not os.path.isfile("productivity.csv"):
+            with open("productivity.csv", "w") as file:
+                file.write("day,timein,timeout\n") 
     with open("productivity.csv", "a") as file:
         
-        if not os.path.isfile("productivity.csv"):
-            writer.writerow("{},{},{}".format(keys[0],keys[1],keys[2]))
+        
         if dbool == True:
             string1 = datetimelist[0]
             string2 = str(datetimelist[1])
@@ -26,9 +28,11 @@ def record():
         
 
 def statuschecker():
-    with open("statuschecker.txt", "r+") as file:
-        if not os.path.isfile("statuschecker.txt"):
+    if not os.path.isfile("statuschecker.txt"):
+        with open("statuschecker.txt","w") as file:
             file.write("1")
+ 
+    with open("statuschecker.txt", "r+") as file:
         string = file.read()
         if string == "1":
             #file.write("0")
