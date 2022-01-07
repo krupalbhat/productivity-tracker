@@ -55,5 +55,7 @@ def get_time_n_date():
 
     
 
-
+if not os.path.isdir("prodfiles"):
+    os.mkdir("prodfiles")
+os.chdir("prodfiles")    
 record()
