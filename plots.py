@@ -3,7 +3,7 @@ import pandas as pd
 import matplotlib.pyplot as plt
 import os
 os.chdir("C:\\Users\\krupal\\Documents")    
-if not os.path.isdir("prodfiles"):
+if not os.path.isdir("productivity-tracker"):
     os.mkdir("productivity-tracker")
 os.chdir("C:\\Users\\krupal\\Documents\\productivity-tracker")    
 
