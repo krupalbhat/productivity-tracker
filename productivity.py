@@ -55,7 +55,7 @@ def get_time_n_date():
 
     
 os.chdir("C:\\Users\\krupal\\Documents")    
-if not os.path.isdir("prodfiles"):
+if not os.path.isdir("productivity-tracker"):
     os.mkdir("productivity-tracker")
 os.chdir("C:\\Users\\krupal\\Documents\\productivity-tracker")    
 record()
