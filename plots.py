@@ -1,6 +1,11 @@
 from re import X
 import pandas as pd
 import matplotlib.pyplot as plt
+import os
+os.chdir("C:\\Users\\krupal\\Documents")    
+if not os.path.isdir("prodfiles"):
+    os.mkdir("productivity-tracker")
+os.chdir("C:\\Users\\krupal\\Documents\\productivity-tracker")    
 
 df = pd.read_csv('productivity.csv')
 print(df)
