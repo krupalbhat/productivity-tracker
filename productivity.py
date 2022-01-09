@@ -1,4 +1,4 @@
-import datetime,csv,re,os
+import datetime,csv,re,os,time
 def record():
     get_time_n_date()
     dbool = True
@@ -22,9 +22,14 @@ def record():
             string2 = str(datetimelist[1])
             string3 = "{},{},".format(string1,string2)
             file.write(string3)
+            print("Time Record Start")
+            time.sleep(3)
+
         if dbool == False:
             string3 = str(datetimelist[1])
-            file.write(string3+"\n") 
+            file.write(string3+"\n")
+            print("Time Record End")
+            time.sleep(3) 
         
 
 def statuschecker():
