@@ -3,20 +3,18 @@ def record():
     get_time_n_date()
     dbool = True
     if statuschecker(): 
-        with open("statuschecker.txt", "w") as file:
+        with open(os.path.join(rootdirectory,"statuschecker.txt"), "w") as file:
             file.write("0")
     else:
-        with open("statuschecker.txt", "w") as file:
+        with open(os.path.join(rootdirectory,"statuschecker.txt"), "w") as file:
             file.write("1")
             dbool = False
             
     keys = ["day","timein","timeout"] #have to revisit
-    if not os.path.isfile("productivity.csv"):
-            with open("productivity.csv", "w") as file:
+    if not os.path.isfile(os.path.join(rootdirectory,"productivity.csv")):
+            with open(os.path.join(rootdirectory,"productivity.csv"), "w") as file:
                 file.write("day,timein,timeout\n") 
-    with open("productivity.csv", "a") as file:
-        
-        
+    with open(os.path.join(rootdirectory,"productivity.csv"), "a") as file:
         if dbool == True:
             string1 = datetimelist[0]
             string2 = str(datetimelist[1])
@@ -33,11 +31,11 @@ def record():
         
 
 def statuschecker():
-    if not os.path.isfile("statuschecker.txt"):
-        with open("statuschecker.txt","w") as file:
+    if not os.path.isfile(os.path.join(rootdirectory,"statuschecker.txt")):
+        with open(os.path.join(rootdirectory,"statuschecker.txt"),"w") as file:
             file.write("1")
  
-    with open("statuschecker.txt", "r+") as file:
+    with open(os.path.join(rootdirectory,"statuschecker.txt"), "r+") as file:
         string = file.read()
         if string == "1":
             #file.write("0")
@@ -58,9 +56,10 @@ def get_time_n_date():
     datetimelist.append(int_time)
     
 
-    
-os.chdir("C:\\Users\\krupal\\Documents")    
-if not os.path.isdir("productivity-tracker"):
-    os.mkdir("productivity-tracker")
-os.chdir("C:\\Users\\krupal\\Documents\\productivity-tracker")    
+if not os.path.isdir(os.path.join(os.path.expanduser('~'),"Documents","productivity-tracker")):
+    os.mkdir(os.path.join(os.path.expanduser('~'),"Documents","productivity-tracker"))
+
+rootdirectory = os.path.join(os.path.expanduser('~'),"Documents","productivity-tracker")
+ 
+
 record()
