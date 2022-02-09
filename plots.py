@@ -1,26 +1,24 @@
+from cProfile import label
 from re import X
+from turtle import title
 import pandas as pd
 import matplotlib.pyplot as plt
 import os
-rootdirectory = os.path.join(os.path.expanduser('~'),"Documents","productivity-tracker")   
+productivity_folder = os.path.join(os.path.expanduser('~'),"Documents","productivity-tracker")   
+productivity_file= os.path.join(productivity_folder,"productivity.csv")
  
-if not os.path.isdir(os.path.join(os.path.expanduser('~'),"Documents","productivity-tracker")):
-    os.mkdir(os.path.join(os.path.expanduser('~'),"Documents","productivity-tracker"))   
+if not os.path.isdir(productivity_folder):
+    os.mkdir(productivity_folder)   
 
-df = pd.read_csv(os.path.join(rootdirectory,'productivity.csv'))
+df = pd.read_csv(productivity_file)
 print(df)
 sumcolumn = (df["timeout"] - df["timein"])/60
 df["difference"] = sumcolumn
+sum = df["difference"].sum()
+print(round(sum))
 
+#figure, axes = plt.subplots(1, 2)
 
-
-figure, axes = plt.subplots(1, 2)
-
-df.plot(ax=axes[0],y = "difference",kind = "bar")
-
-df.plot(ax=axes[1],y = "difference")
-# df.plot(y = "difference",kind = 'bar')
-
-# df.plot(y = "difference")
+df.plot(y = "difference",label = " Time in minutes",title = f"You Utilized {round(sum)} minutes productively today",kind = "bar")
 
 plt.show() 
