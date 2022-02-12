@@ -1,3 +1,4 @@
+#! /usr/bin/env python3
 from cProfile import label
 from re import X
 from turtle import title
@@ -9,16 +10,16 @@ productivity_file= os.path.join(productivity_folder,"productivity.csv")
  
 if not os.path.isdir(productivity_folder):
     os.mkdir(productivity_folder)   
-
 df = pd.read_csv(productivity_file)
 print(df)
 sumcolumn = (df["timeout"] - df["timein"])/60
-df["difference"] = sumcolumn
+df["difference"] = sumcolumn 
 sum = df["difference"].sum()
 print(round(sum))
 
 #figure, axes = plt.subplots(1, 2)
 
-df.plot(y = "difference",label = " Time in minutes",title = f"You Utilized {round(sum)} minutes productively today",kind = "bar")
 
+df.plot(y = "difference",x="activity",label = " Time in minutes",title = f"You Utilized {round(sum)} minutes productively today",kind = "bar")
+plt.xticks(rotation=0)
 plt.show() 

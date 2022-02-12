@@ -1,3 +1,4 @@
+#! /usr/bin/env python3
 import datetime,csv,re,os,time
 # All file locations
 productivity_folder = os.path.join(os.path.expanduser('~'),"Documents","productivity-tracker")
@@ -9,23 +10,22 @@ def record():
     if statuschecker(): 
         with open(status_checker_file, "w") as file:                   #Changes the status of file from not recording to recording
             file.write("0")
+        reason = input("write the activity you are doing?")    
     else:
         with open(status_checker_file, "w") as file:                #Changes the status of file from recording to not recording
             file.write("1")
             dbool = False
             
-    keys = ["day","timein","timeout"] #have to revisit
     if not os.path.isfile(productivity_file):
             with open(productivity_file, "w") as file:          # Creates productivity.csv if it doesnt exist
-                file.write("day,timein,timeout\n") 
+                file.write("day,activity,timein,timeout\n") 
     with open(productivity_file, "a") as file:
         if dbool == True:
             string1 = datetimelist[0]
             string2 = str(datetimelist[1])
-            string3 = "{},{},".format(string1,string2)                                     # while recording starts it will write Date and Record start Time to csv file 
+            string3 = "{},{},{},".format(string1,reason,string2)                                     # while recording starts it will write Date and Record start Time to csv file 
             file.write(string3)
             print("Time Record Start")
-            time.sleep(3)
 
         if dbool == False:
             string3 = str(datetimelist[1])                                  # while recording ends it will write and Record end Time to csv file
